@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ReactiveXFramework
@@ -38,15 +39,40 @@ namespace ReactiveXFramework
     }
 
     #region Action Details
-    public class ActionDetail
+    public class ActionDetail : IEquatable<ActionDetail>
     {
-        Tuple<object, object> Detail { get; set; } = new Tuple<object, object>(null, null);
+        public Tuple<object, object> Detail { get; set; } = new Tuple<object, object>(null, null);
+
+        public bool Equals(ActionDetail other)
+        {
+            return object.Equals(Detail, other);
+        }
+
+        public int GetHashCode(ActionDetail obj)
+        {
+            unchecked { var hashCode = Detail.GetHashCode(); return hashCode; }
+            
+        }
     }
     /// <summary>
     /// Type of an action [movement, sound, feel, taste]
     /// </summary>
     public class Action
     {
+        static public Action CreateAction(string name, List<ActionDetail> details)
+        {
+            return new Action() { Name = name, Details = details };
+        }
+
+        static void AddActionDetail(Action action, ActionDetail detail)
+        {
+            action.Details.Add(detail);
+        }
+
+        static void RemoveActionDetail(Action action, ActionDetail detail)
+        {
+            action.Details.Remove(detail);
+        }
         string Name { get; set; }
         List<ActionDetail> Details { get; set; } = new List<ActionDetail>();
     }

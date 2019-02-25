@@ -14,7 +14,17 @@ namespace ReactiveXFramework
         public string Name { get; set; }
         public List<Action> AllowedActions {get; set; }
 
+        public void CommunicateActionTo(IActionReceptor actionReceptor, IActionInstance actionInstance)
+        {
+            throw new NotImplementedException();
+        }
+
         public IActionInstance GenerateAction(Action actionType, object actionData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReceiveReaction(IReactionInstance reaction)
         {
             throw new NotImplementedException();
         }
